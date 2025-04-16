@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: board
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/restapi
+    username: dev
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+
+server:
+  port: 1001
