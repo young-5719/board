@@ -12,19 +12,18 @@ import restapi.board.service.PostService;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/post")
+@RequestMapping("/api/posts")
 public class PostController {
 
     @Autowired
     private PostService postService;
 
     @GetMapping
-    public ResponseEntity<Page<Post>> listPost(
-            @RequestParam(defaultValue="0") int page,
-            @RequestParam(defaultValue = "10")int size) {
+    public ResponseEntity<Page<Post>> listPosts(@RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Post> posts = postService.getPosts(pageable);
-        return ResponseEntity.ok().body(posts);
+        return ResponseEntity.ok(posts);
     }
 
     @GetMapping("/{id}")
@@ -35,7 +34,12 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
+        System.out.println(">>> 받은 제목: " + post.getTitle());
+        System.out.println(">>> 받은 내용: " + post.getContent());
+
         Post createdPost = postService.createPost(post);
+        System.out.println(">>> 저장된 ID: " + createdPost.getId());
+
         return ResponseEntity.ok(createdPost);
     }
 
